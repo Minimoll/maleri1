@@ -1,92 +1,89 @@
-# Måleri1 — Hemsida
+# Måleri1 — Custom Website
 
-En modern one-page-hemsida för Måleri1 i Vätterbygden AB, ett måleriföretag baserat i Habo och Jönköping.
+A modern, website for **Måleri1 i Vätterbygden AB**, a painting company based in Vätterbygden, Sweden.
 
-## Översikt
+Built from scratch with vanilla JavaScript and Vite. Total production bundle weighs under 100 KB (excluding images).
 
-Statisk webbplats byggd med vanilla JavaScript och Vite som build-verktyg. Designad med fokus på snabb laddning, tillgänglighet och tydlig konvertering — en besökare ska inom några sekunder förstå vad företaget gör och hur de når dem.
+> **Live site:** [maleri1.netlify.app](https://maleri1.netlify.app) · Custom domain coming soon
 
-### Funktioner
+---
 
-- Sticky header med scroll-känslig stil
-- Scroll-triggade fade-in-animationer (IntersectionObserver)
-- Animerade räknare i hero-sektionen
-- Portfolio-galleri med kategorifilter
-- Kontaktformulär som öppnar e-postklienten med förifyllt innehåll
-- Fullt responsiv från mobil (320px) till stor desktop
-- Subtila mikrointeraktioner (hover, parallax)
+## Highlights
 
-## Teknik
+- **Performance-first** — Static site, no runtime framework, minimal dependencies
+- **Modular architecture** — Each section has its own CSS file and JS module
+- **Fluid responsive design** — Adapts from 320 px to 4K without breakpoint juggling, using `clamp()` and auto-fit grids
+- **Self-contained icons** — All icons are inline SVG, no external CDN dependency
+- **Accessible by default** — Semantic HTML, ARIA labels, keyboard navigation, respects `prefers-reduced-motion`
+- **Built-in lightbox** — Category-based image gallery powered by GLightbox
 
-- **Build-verktyg:** Vite 5
-- **JavaScript:** Vanilla ES2022, uppdelat i moduler
-- **CSS:** Modulär struktur med CSS custom properties för temat
-- **Typografi:** Fraunces (display) + Inter (text) via Google Fonts
-- **Ikoner:** Tabler Icons webfont
-- **Ingen ramverks-runtime** — sidan väger under 30 kB minifierad
+## Tech stack
 
-## Kom igång
+| Layer         | Choice                            | Why                                                |
+| ------------- | --------------------------------- | -------------------------------------------------- |
+| Build tool    | Vite 5                            | Fast dev server, optimized production builds       |
+| Language      | Vanilla JS (ES2022)               | No framework lock-in, near-zero bundle overhead    |
+| Styles        | Plain CSS with custom properties  | Modular files, no preprocessor needed              |
+| Typography    | Fraunces (display) + Inter (text) | Distinct serif/sans pairing, both via Google Fonts |
+| Image gallery | GLightbox                         | Lightweight (~10 KB), touch-friendly, accessible   |
+| Hosting       | Netlify                           | Free tier, automatic HTTPS, drag-and-drop deploys  |
+
+## Getting started
 
 ```bash
-npm install
-npm run dev      # startar dev-server på http://localhost:5173
-npm run build    # bygger produktion till dist/
-npm run preview  # förhandsgranskar den byggda versionen
+npm install      # install dependencies
+npm run dev      # start dev server at http://localhost:5173
+npm run build    # produce optimized build in dist/
+npm run preview  # serve the built version locally
 ```
 
-## Projektstruktur
+## Project structure
 
 ```
-maleri1/
-├── index.html
-├── package.json
-├── vite.config.js
-├── public/                       statiska filer som kopieras as-is
+maleri1-vite/
+├── index.html                  # single page entry
+├── public/
 │   └── favicon.svg
 └── src/
     ├── styles/
-    │   ├── main.css              entry, importerar alla andra
-    │   ├── base/
-    │   │   ├── reset.css
-    │   │   ├── variables.css
-    │   │   └── typography.css
-    │   └── components/
-    │       ├── header.css
-    │       ├── hero.css
-    │       ├── services.css
-    │       ├── portfolio.css
-    │       ├── team.css
-    │       ├── contact.css
-    │       ├── footer.css
-    │       └── reveal.css
+    │   ├── main.css            # imports all stylesheets
+    │   ├── base/               # reset, variables, typography
+    │   └── components/         # one file per section
     ├── scripts/
-    │   ├── main.js               entry, importerar alla moduler
+    │   ├── main.js             # entry, initializes all modules
     │   └── modules/
-    │       ├── header.js         scroll-state och parallax
-    │       ├── nav.js            mobil hamburger-meny
-    │       ├── reveal.js         scroll-triggad fade-in + räknare
-    │       ├── portfolio.js      kategorifilter
-    │       └── contact.js        formulärhantering
+    │       ├── icons.js        # inline SVG icon renderer
+    │       ├── header.js       # sticky header + parallax
+    │       ├── nav.js          # mobile hamburger menu
+    │       ├── reveal.js       # scroll-triggered fade-ins + counters
+    │       ├── services.js    # service-card accordion
+    │       ├── lightbox.js     # portfolio image gallery
+    │       └── contact.js      # contact form (mailto fallback)
     └── assets/
-        └── images/               bilder används av komponenter
+        └── images/             # logo, team photo, project shots
 ```
 
-## Designval
+## Design decisions
 
-**Färg.** Svart bakgrund med guld (#E5B83A) som accent — hämtat direkt från företagets logga. Guld signalerar kvalitet och hantverk, vilket är vad ett måleriföretag säljer.
+**Dark theme with gold accent.** The black background with `#E5B83A` gold is lifted directly from the client's logo. Gold signals craftsmanship and quality — which is exactly what a painting business sells.
 
-**Typografi.** Fraunces för display ger en distinkt karaktär jämfört med generiska sans-serif-rubriker. Inter för brödtext säkrar läsbarhet.
+**Fraunces + Inter.** The serif/sans pairing avoids the generic "sans-serif everywhere" look common to template sites, without sacrificing readability for body copy.
 
-**Layout.** Alternerande mörka och ljusa sektioner skapar rytm. Numrerade sektioner (01, 02, ...) ger besökaren en känsla av flöde.
+**Full-viewport sections.** Each section is `min-height: 100vh`, creating a slide-like scrolling experience that puts each topic centre stage. Works because there are only five sections — would not scale to a long marketing page.
 
-## Att göra innan lansering
+**Inline SVG icons.** A common bug with icon webfonts is silent failure when the CDN is slow or blocked. By inlining all 13 icons as SVG paths in a small JS module, the site renders correctly under any network conditions.
 
-- [ ] Ersätta gradient-platshållare i portfolio-gallerit med riktiga bilder
-- [ ] Lägga till riktig logga som SVG
-- [ ] Koppla kontaktformuläret till en backend-tjänst (Formspree, Web3Forms)
-- [ ] Lägga till Open Graph och Twitter Card-meta-taggar
-- [ ] Konfigurera domän och hosting (Netlify, Vercel eller Cloudflare Pages)
+**Image galleries instead of project cards.** The client mostly takes one-shot photos per job (not multi-image case studies), so the portfolio shows three category tiles. Each opens a lightbox of every image in that category — better suited to their actual content than per-project pages would be.
 
-## Licens
+## What's next
 
-Privat projekt. All form av återanvändning kräver tillstånd från Måleri1 i Vätterbygden AB.
+- [ ] Replace remaining placeholder thumbnails with real project photos
+- [ ] Wire contact form to a backend service (Netlify Forms or Web3Forms)
+- [ ] Add security headers via `_headers` file
+- [ ] Generate sitemap.xml and robots.txt
+- [ ] Custom 404 page
+- [ ] Point `maleri1.nu` domain to Netlify
+
+## License
+
+Private project. Code is shared for portfolio purposes only — please contact the author before reusing any of it.
