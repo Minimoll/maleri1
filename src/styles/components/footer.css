@@ -1,0 +1,69 @@
+footer {
+  background: #050505;
+  padding-block: clamp(28px, 4vw, 40px);
+  padding-bottom: max(clamp(28px, 4vw, 40px), var(--safe-bottom));
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-text {
+  color: var(--text-dim);
+  font-size: clamp(12px, 1.2vw, 13px);
+}
+
+.socials {
+  display: flex;
+  gap: 12px;
+}
+.socials a {
+  color: var(--text-muted);
+  font-size: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease-out);
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+.socials a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.4s var(--ease-out);
+  z-index: 0;
+}
+.socials a > * {
+  position: relative;
+  z-index: 1;
+}
+.socials a:hover {
+  color: var(--bg);
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.socials a:hover::before {
+  transform: scale(1);
+}
+
+@media (hover: none) {
+  .socials a:hover {
+    transform: none;
+    color: var(--text-muted);
+  }
+  .socials a:hover::before { transform: scale(0); }
+}

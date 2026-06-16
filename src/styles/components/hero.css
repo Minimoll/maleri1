@@ -1,0 +1,103 @@
+.hero {
+  padding-top: clamp(90px, 11vw, 110px);
+  padding-bottom: clamp(40px, 5vw, 60px);
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 30%, rgba(229, 184, 58, 0.10), transparent 55%),
+    radial-gradient(ellipse at 75% 70%, rgba(229, 184, 58, 0.04), transparent 60%);
+  will-change: transform;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: clamp(40px, 8vw, 80px) clamp(40px, 8vw, 80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-sub {
+  max-width: 50ch;
+  color: var(--text-muted);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.6;
+  margin-bottom: clamp(28px, 3.5vw, 40px);
+}
+
+.hero-actions {
+  display: flex;
+  gap: clamp(10px, 1.5vw, 14px);
+  flex-wrap: wrap;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--border);
+  justify-items: start;
+}
+.hero-stats > div {
+  text-align: left;
+  justify-self: start;
+  width: 100%;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 6px;
+  overflow-wrap: break-word;
+}
+.stat-num .plus {
+  color: var(--gold);
+}
+
+.hero-stats > div:nth-child(2) .stat-num,
+.hero-stats > div:nth-child(3) .stat-num {
+  font-size: clamp(24px, 2.8vw, 32px);
+  color: var(--gold);
+  letter-spacing: -0.5px;
+  margin-left: -0.12em;
+}
+
+.stat-label {
+  font-size: clamp(11px, 1.1vw, 12px);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding-top: clamp(100px, 14vw, 140px);
+    padding-bottom: 60px;
+  }
+  .hero-stats { margin-top: 32px; }
+}

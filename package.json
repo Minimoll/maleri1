@@ -1,0 +1,17 @@
+{
+  "name": "maleri1",
+  "version": "1.0.0",
+  "description": "Hemsida för Måleri1 i Vätterbygden AB — måleri i Vätterbygden.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "glightbox": "^3.3.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
