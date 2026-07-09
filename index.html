@@ -347,9 +347,16 @@
 						<form
 							class="form reveal reveal-delay-1"
 							id="contactForm"
-							action="mailto:info@maleri1.nu"
-							method="POST"
-							enctype="text/plain">
+							name="kontakt"
+							data-netlify="true"
+							data-netlify-honeypot="bot-field">
+							<p class="honeypot" aria-hidden="true">
+								<label
+									>Fyll inte i detta fält:
+									<input name="bot-field" tabindex="-1" autocomplete="off"
+								/></label>
+							</p>
+							<input type="hidden" name="form-name" value="kontakt" />
 							<div class="form-success" id="formSuccess">
 								<i data-icon="check" aria-hidden="true"></i> Tack! Vi
 								återkopplar inom ett dygn.
