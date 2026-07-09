@@ -1,36 +1,53 @@
-const RECIPIENT = 'info@maleri1.nu';
 const SUCCESS_TIMEOUT = 6000;
 
 export function initContactForm() {
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('formSuccess');
-  if (!form) return;
+	const form = document.getElementById("contactForm");
+	const success = document.getElementById("formSuccess");
+	if (!form) return;
 
-  form.addEventListener('submit', (event) => {
-    const data = new FormData(form);
-    const name = String(data.get('namn') || '').trim();
-    const phone = String(data.get('telefon') || '').trim();
-    const email = String(data.get('epost') || '').trim();
-    const message = String(data.get('meddelande') || '').trim();
+	form.addEventListener("submit", async (event) => {
+		event.preventDefault();
 
-    if (!name || !phone || !email || !message) return;
+		const data = new FormData(form);
 
-    event.preventDefault();
+		if (String(data.get("bot-field") || "").trim()) {
+			form.reset();
+			return;
+		}
 
-    const subject = encodeURIComponent(`Förfrågan från hemsidan — ${name}`);
-    const body = encodeURIComponent(
-      `Namn: ${name}\n` +
-      `Telefon: ${phone}\n` +
-      `E-post: ${email}\n\n` +
-      `Meddelande:\n${message}`
-    );
+		const submitBtn = form.querySelector(".form-submit");
+		const originalText = submitBtn ? submitBtn.innerHTML : "";
 
-    window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
+		try {
+			if (submitBtn) {
+				submitBtn.disabled = true;
+				submitBtn.textContent = "Skickar…";
+			}
 
-    if (success) {
-      success.classList.add('visible');
-      setTimeout(() => success.classList.remove('visible'), SUCCESS_TIMEOUT);
-    }
-    form.reset();
-  });
+			const response = await fetch("/", {
+				method: "POST",
+				headers: { "Content-Type": "application/x-www-form-urlencoded" },
+				body: new URLSearchParams(data).toString(),
+			});
+
+			if (!response.ok) throw new Error(`Netlify svarade ${response.status}`);
+
+			if (success) {
+				success.classList.add("visible");
+				setTimeout(() => success.classList.remove("visible"), SUCCESS_TIMEOUT);
+			}
+			form.reset();
+		} catch (error) {
+			console.error("Formulärfel:", error);
+			alert(
+				"Något gick fel när meddelandet skulle skickas. " +
+					"Ring oss gärna på 036 - 421 11 eller mejla info@maleri1.nu direkt.",
+			);
+		} finally {
+			if (submitBtn) {
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = originalText;
+			}
+		}
+	});
 }
