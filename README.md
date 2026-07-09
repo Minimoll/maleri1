@@ -32,14 +32,14 @@ Live at [maleri1.nu](https://maleri1.nu)
 
 **Icons are inline SVG** in `scripts/modules/icons.js`. Started out with an icon webfont but it failed silently when the CDN was slow, so I inlined everything instead. Use `<i data-icon="name">` in the markup.
 
-**Portfolio images** are imported with Vite's `import.meta.glob` in `lightbox.js` so they get hashed and bundled correctly. Plain string paths like `/src/assets/...` work in dev but 404 in production — learned that the hard way. Adding an image means dropping the file in `assets/images/projects/` and adding one line to the galleries object.
+**Portfolio images** are imported with Vite's `import.meta.glob` in `lightbox.js` so they get hashed and bundled correctly.
 
 **The galleries autoplay** (4.5s per slide, fade transition) with a pause/play button and a counter. Autoplay stops if the visitor starts navigating manually.
 
-**Contact form** posts to Netlify Forms. Honeypot field for spam, email notification to the company inbox on every submission. The first version used a `mailto:` action, which depended on visitors having a mail client configured and also triggered a "non-secure form" warning in Chrome — don't go back to that.
+**Contact form** posts to Netlify Forms. Honeypot field for spam, email notification to the company inbox on every submission. The first version used a `mailto:` action, which depended on visitors having a mail client configured.
 
-**DNS:** the domain points to Netlify (A record + www CNAME) but all mail records (MX, SPF, DKIM, autoconfig) still point to Loopia where the company email lives. If you ever touch DNS, leave everything mail-related alone.
+**DNS:** the domain points to Netlify (A record + www CNAME) but all mail records (MX, SPF, DKIM, autoconfig) still point to Loopia where the company email lives.
 
-**Team avatars** are cropped from the group photo using `background-position` in `team.css`. The pixel values took a lot of trial and error — don't change them without checking the result.
+**Team avatars** are cropped from the group photo using `background-position` in `team.css`.
 
 **Dark theme with gold** (`#E5B83A`) comes straight from their logo. Sections are full-viewport height, which works fine with five sections but wouldn't scale to a longer page.
