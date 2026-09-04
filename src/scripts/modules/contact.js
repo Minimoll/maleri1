@@ -41,7 +41,7 @@ export function initContactForm() {
 			console.error("Formulärfel:", error);
 			alert(
 				"Något gick fel när meddelandet skulle skickas. " +
-					"Ring oss gärna på 036 - 421 11 eller mejla info@maleri1.nu direkt.",
+					"Ring oss gärna på 036 - 421 11 eller mejla mikael@maleri1.nu direkt.",
 			);
 		} finally {
 			if (submitBtn) {
